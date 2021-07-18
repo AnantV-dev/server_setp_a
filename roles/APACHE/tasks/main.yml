@@ -1,0 +1,26 @@
+---
+# tasks file for APACHE
+
+- name : "Create directory"
+  file :
+    path : "{{ DOCUMENTROOT }}"
+    state : directory
+    mode : 0755
+ 
+- name : "Install Apache"
+  yum :
+    name : httpd
+
+- name : "Copy conf file"
+  template :
+    src : "httpd.conf.j2"
+    dest : "/etc/httpd/conf/httpd.conf"
+  notify : 
+    - "start apache"
+
+- name : "Copy web page"
+  template : 
+    src : "index.html.j2"
+    dest : "{{ DOCUMENTROOT }}/index.html"
+  notify :
+    - "restart apache"

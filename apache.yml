@@ -1,0 +1,6 @@
+---
+- name : "Apache Insall"
+  hosts : "{{ HOST }}"
+  become : yes
+  roles:
+    - role : APACHE
